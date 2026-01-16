@@ -1,0 +1,872 @@
+/* =========================================
+   1. VARIABLES & RESET
+   ========================================= */
+:root {
+  --bg-body: #f8fafc;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --primary: #2563eb;
+  --primary-glow: rgba(37, 99, 235, 0.3);
+  --secondary: #06b6d4;
+  --card-bg: #ffffff;
+  --nav-bg: rgba(255, 255, 255, 0.85);
+  --border: #e2e8f0;
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+  --bg-body: #020617;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --primary: #3b82f6;
+  --card-bg: #1e293b;
+  --nav-bg: rgba(15, 23, 42, 0.85);
+  --border: #334155;
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  background: var(--bg-body);
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+
+/* =========================================
+   2. NAVBAR
+   ========================================= */
+.navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  width: auto;
+  min-width: 600px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 100px;
+  padding: 12px 30px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+}
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--primary);
+}
+.brand-logo {
+  width: 32px;
+  height: 32px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-links {
+  display: flex;
+  gap: 5px;
+}
+.nav-item {
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+.nav-item:hover {
+  background: var(--primary);
+  color: white;
+}
+.theme-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.theme-toggle:hover {
+  background: var(--text-main);
+  color: var(--bg-body);
+  transform: rotate(15deg);
+}
+
+/* =========================================
+   3. HERO SECTION
+   ========================================= */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 100px 20px 50px;
+  position: relative;
+}
+.hero-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: var(--primary);
+  opacity: 0.08;
+  filter: blur(120px);
+  border-radius: 50%;
+  z-index: -1;
+}
+.hero-container {
+  max-width: 800px;
+  z-index: 1;
+}
+.badge-pill {
+  display: inline-block;
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--primary);
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+}
+.hero-title {
+  font-size: 3.5rem;
+  line-height: 1.1;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero-desc {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 14px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 10px 25px -5px var(--primary-glow);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn-primary:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 35px -5px var(--primary-glow);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--text-main);
+  padding: 14px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn-secondary:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: rgba(37, 99, 235, 0.05);
+  transform: translateY(-5px);
+}
+
+/* =========================================
+   4. STATS SECTION
+   ========================================= */
+.stats-section {
+  padding: 0 20px;
+  margin-top: -30px;
+  position: relative;
+  z-index: 5;
+}
+.stats-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+.stat-card {
+  background: var(--card-bg);
+  padding: 25px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-width: 250px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.stat-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary);
+}
+.stat-card::after {
+  content: "Lihat Detail";
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  font-size: 0.75rem;
+  color: var(--primary);
+  opacity: 0;
+  transform: translateY(5px);
+  transition: 0.3s;
+  font-weight: 700;
+}
+.stat-card:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+.stat-card:hover .icon-wrap {
+  transform: scale(1.1) rotate(10deg);
+}
+.icon-wrap {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+  transition: 0.4s;
+}
+.rs {
+  background: #ef4444;
+}
+.pusk {
+  background: #10b981;
+}
+.apt {
+  background: #f59e0b;
+}
+.stat-info h3 {
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+
+/* =========================================
+   5. MAP SECTION & IFRAME (REVISI BORDER)
+   ========================================= */
+.map-layout-section {
+  padding: 100px 20px;
+  background: var(--bg-body);
+  position: relative;
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.section-header h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.section-header p {
+  color: var(--text-muted);
+}
+.map-frame-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+.map-border {
+  background: #fff;
+  padding: 10px;
+  border-radius: 16px;
+  /* Tambahan Shadow dan Border agar kontras */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+/* STYLE KHUSUS IFRAME PETA */
+.map-iframe {
+  width: 100%;
+  height: 600px;
+  /* Tambahan Border pada Iframe */
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  display: block;
+}
+
+/* =========================================
+   6. LAYOUT PETA CETAK (REVISI BACKGROUND & BORDER)
+   ========================================= */
+.layout-section {
+  padding: 80px 20px;
+  /* Menggunakan warna kartu agar beda dengan section map */
+  background: var(--card-bg);
+  /* Tambahan Garis Batas Atas Bawah */
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+.layout-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+.layout-text {
+  flex: 1;
+  min-width: 300px;
+}
+.layout-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  font-weight: 800;
+  color: var(--text-main);
+}
+.layout-desc {
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 25px;
+  font-size: 1.05rem;
+}
+.layout-specs {
+  list-style: none;
+  margin-bottom: 30px;
+}
+.layout-specs li {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-main);
+  font-weight: 500;
+}
+.layout-specs li i {
+  color: var(--primary);
+}
+.layout-image-wrapper {
+  flex: 1;
+  min-width: 300px;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 8px solid var(--border); /* Ubah border jadi var border agar fleksibel */
+  cursor: pointer;
+  transition: transform 0.3s ease, border 0.3s ease;
+}
+.layout-image-wrapper:hover {
+  transform: scale(1.02);
+}
+.layout-thumb {
+  width: 100%;
+  display: block;
+  height: auto;
+}
+.overlay-zoom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  opacity: 0;
+  transition: 0.3s;
+  gap: 10px;
+  backdrop-filter: blur(2px);
+}
+.layout-image-wrapper:hover .overlay-zoom {
+  opacity: 1;
+}
+
+/* =========================================
+   7. FOOTER
+   ========================================= */
+.footer {
+  background: var(--card-bg);
+  border-top: 1px solid var(--border);
+  padding-top: 60px;
+  margin-top: 50px;
+}
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr;
+  gap: 50px;
+}
+.brand-col h3 {
+  color: var(--primary);
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+.brand-col p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.footer-col h4 {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: var(--text-main);
+}
+.footer-col a {
+  display: block;
+  text-decoration: none;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  transition: 0.2s;
+}
+.footer-col a:hover {
+  color: var(--primary);
+  padding-left: 5px;
+}
+.footer-col p {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-muted);
+}
+.socials {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+.socials a {
+  width: 40px;
+  height: 40px;
+  background: var(--bg-body);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--text-main);
+}
+.socials a:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+.footer-copyright {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* =========================================
+   8. MODALS (DATA & ZOOM)
+   ========================================= */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  align-items: center;
+  justify-content: center;
+}
+.modal-box {
+  background-color: var(--card-bg);
+  width: 90%;
+  max-width: 800px;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+  animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid var(--border);
+}
+@keyframes popUp {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.modal-header {
+  padding: 20px 25px;
+  background: var(--bg-body);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text-main);
+  font-weight: 700;
+}
+.close-btn {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: 0.2s;
+}
+.close-btn:hover {
+  color: #ef4444;
+  transform: rotate(90deg);
+}
+.modal-body {
+  padding: 0;
+  overflow-y: auto;
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.data-table th,
+.data-table td {
+  text-align: left;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-main);
+}
+.data-table th {
+  background-color: var(--bg-body);
+  font-weight: 700;
+  position: sticky;
+  top: 0;
+  color: var(--primary);
+}
+.data-table tr:hover {
+  background-color: rgba(37, 99, 235, 0.05);
+}
+.id-badge {
+  background: var(--border);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+/* ZOOM MODAL */
+.zoom-modal {
+  display: none;
+  position: fixed;
+  z-index: 10001;
+  padding-top: 50px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(5px);
+}
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 1200px;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  animation: zoomIn 0.3s;
+}
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #fff;
+  padding: 20px 0;
+  font-size: 1.1rem;
+}
+.close-modal {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #fff;
+  font-size: 50px;
+  font-weight: bold;
+  transition: 0.3s;
+  cursor: pointer;
+  z-index: 10002;
+}
+.close-modal:hover {
+  color: var(--primary);
+  transform: scale(1.1);
+}
+
+/* =========================================
+   9. OVERRIDE KHUSUS DARK MODE (AGAR BATAS JELAS)
+   ========================================= */
+[data-theme="dark"] .layout-section {
+  background: #1e293b; /* Warna agak terang dari body */
+  border-top: 1px solid #334155;
+  border-bottom: 1px solid #334155;
+}
+
+[data-theme="dark"] .map-layout-section {
+  background: #0f172a; /* Warna body paling gelap */
+}
+
+[data-theme="dark"] .map-border {
+  background: #1e293b;
+  border: 1px solid #334155;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .map-iframe {
+  border: 1px solid #334155;
+}
+
+/* =========================================
+   10. RESPONSIVE
+   ========================================= */
+@media (max-width: 768px) {
+  .navbar {
+    top: auto;
+    bottom: 20px;
+    width: 90%;
+    min-width: auto;
+    padding: 10px 20px;
+  }
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
+  .brand-col,
+  .footer-col p,
+  .socials {
+    justify-content: center;
+  }
+  .map-iframe {
+    height: 450px;
+  } /* Atur tinggi map di HP */
+  .layout-container {
+    flex-direction: column-reverse;
+  }
+  .modal-content {
+    width: 95%;
+    margin-top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+/* =========================================
+   FITUR MAP FULLSCREEN (OVERLAY)
+   ========================================= */
+
+/* Pastikan container peta relative */
+.map-border {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  background: white;
+}
+
+/* 1. TOMBOL BUKA (Posisi Bawah Tengah) */
+.btn-fullscreen-center {
+  position: absolute;
+  bottom: 30px; /* Jarak dari bawah */
+  left: 50%; /* Posisi tengah horizontal */
+  transform: translateX(-50%); /* Trik agar benar-benar di tengah */
+  z-index: 50;
+
+  background: var(--primary);
+  color: white;
+  border: 2px solid white;
+  padding: 12px 25px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-fullscreen-center:hover {
+  background: var(--text-main);
+  transform: translateX(-50%) translateY(-5px); /* Tetap di tengah + naik dikit */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* =========================================
+   UPDATE TOMBOL CLOSE (X) DI TENGAH BAWAH
+   ========================================= */
+
+.btn-close-map {
+  display: none; /* Default: Sembunyi */
+
+  /* Posisi: Tengah Bawah */
+  position: absolute;
+  bottom: 30px; /* Jarak dari bawah (sama dengan tombol buka) */
+  left: 50%; /* Posisi tengah horizontal */
+  transform: translateX(-50%); /* Trik centering */
+  z-index: 60; /* Pastikan di atas layer peta */
+
+  /* Styling Bentuk Bulat */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+
+  background: #ef4444; /* Merah */
+  color: white;
+  border: 3px solid white; /* Border putih tebal agar kontras */
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+
+  /* Agar ikon X pas di tengah lingkaran */
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Efek saat Hover (Disorot mouse) */
+.btn-close-map:hover {
+  background: #dc2626; /* Merah lebih gelap */
+  transform: translateX(-50%) scale(1.1) rotate(90deg); /* Membesar & Putar */
+  box-shadow: 0 10px 25px rgba(220, 38, 38, 0.5); /* Glow merah */
+}
+
+/* Pastikan tombol muncul saat mode fullscreen aktif */
+.map-border.fullscreen-active .btn-close-map {
+  display: flex; /* Gunakan flex agar ikon di tengah */
+  animation: popUpButton 0.4s ease-out; /* Animasi muncul */
+}
+
+/* Animasi kecil saat tombol X muncul */
+@keyframes popUpButton {
+  from {
+    bottom: -50px;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+/* 3. STATE SAAT FULLSCREEN AKTIF */
+/* Class ini akan ditambahkan lewat Javascript */
+.map-border.fullscreen-active {
+  position: fixed; /* Melayang menutupi layar */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Lebar 100% layar */
+  height: 100vh; /* Tinggi 100% layar */
+  z-index: 99999; /* Paling atas */
+  border-radius: 0; /* Hilangkan sudut bulat */
+  padding: 0; /* Hilangkan padding putih */
+  border: none;
+}
+
+/* Saat aktif, ubah tinggi iframe jadi full */
+.map-border.fullscreen-active .map-iframe {
+  height: 100%;
+  border-radius: 0;
+  border: none;
+}
+
+/* Saat aktif, sembunyikan tombol buka, munculkan tombol X */
+.map-border.fullscreen-active .btn-fullscreen-center {
+  display: none;
+}
+.map-border.fullscreen-active .btn-close-map {
+  display: flex; /* Munculkan tombol X */
+}

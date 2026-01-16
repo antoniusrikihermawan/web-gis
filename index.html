@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebGIS Fasilitas Kesehatan - Klojen</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-content">
+        <div class="brand">
+          <div class="brand-logo"><i class="fa-solid fa-map"></i></div>
+          <span>SIG-KLOJEN</span>
+        </div>
+
+        <div class="nav-links">
+          <a href="#hero" class="nav-item">Beranda</a>
+          <a href="#map-section" class="nav-item">Data Statistik</a>
+          <a href="#stats" class="nav-item">Peta Digital</a>
+        </div>
+
+        <button class="theme-toggle" onclick="toggleTheme()" title="Ganti Mode">
+          <i class="fa-solid fa-moon" id="theme-icon"></i>
+        </button>
+      </div>
+    </nav>
+
+    <header id="hero" class="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-container">
+        <div class="badge-pill">Update Data 2025</div>
+        <h1 class="hero-title">
+          Pemetaan Digital <br /><span class="gradient-text"
+            >Fasilitas Kesehatan</span
+          >
+        </h1>
+        <p class="hero-desc">
+          Platform Sistem Informasi Geografis Kelurahan Klojen untuk
+          memonitoring persebaran Rumah Sakit, Puskesmas, dan Apotek secara
+          interaktif.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#map-section" class="btn-primary">
+            Buka Peta <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="#stats" class="btn-secondary">
+            Lihat Data <i class="fa-solid fa-chart-simple"></i>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <section id="stats" class="stats-section">
+      <div class="stats-wrapper">
+        <div class="stat-card" onclick="openModal('Rumah Sakit')">
+          <div class="icon-wrap rs"><i class="fa-solid fa-hospital"></i></div>
+          <div class="stat-info">
+            <h3 id="count-rs">0</h3>
+            <p>Rumah Sakit</p>
+          </div>
+        </div>
+
+        <div class="stat-card" onclick="openModal('Klinik')">
+          <div class="icon-wrap pusk">
+            <i class="fa-solid fa-house-medical"></i>
+          </div>
+          <div class="stat-info">
+            <h3 id="count-pusk">0</h3>
+            <p>Klinik</p>
+          </div>
+        </div>
+
+        <div class="stat-card" onclick="openModal('Apotek')">
+          <div class="icon-wrap apt"><i class="fa-solid fa-pills"></i></div>
+          <div class="stat-info">
+            <h3 id="count-apt">0</h3>
+            <p>Apotek</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="layout-section" class="layout-section">
+      <div class="layout-container">
+        <div class="layout-text">
+          <div class="badge-pill">Dokumen Kartografi</div>
+          <h2>
+            Layout Peta Cetak <br /><span class="gradient-text"
+              >Standar Kartografi</span
+            >
+          </h2>
+
+          <p class="layout-desc">
+            Peta ini merupakan hasil digitasi dan layouting menggunakan
+            perangkat lunak <strong>QGIS 3.28</strong>. Disusun sesuai kaidah
+            kartografi dengan sistem koordinat
+            <strong>WGS 84 / UTM Zone 49S</strong>.
+          </p>
+
+          <ul class="layout-specs">
+            <li>
+              <i class="fa-solid fa-check-circle"></i>
+              <strong>Judul:</strong> Peta Tematik Persebaran Fasilitas
+              Kesehatan
+            </li>
+            <li>
+              <i class="fa-solid fa-check-circle"></i>
+              <strong>Lokasi:</strong> Kelurahan Klojen, Kota Malang
+            </li>
+            <li>
+              <i class="fa-solid fa-check-circle"></i> <strong>Skala:</strong> 1
+              : 4.500
+            </li>
+            <li>
+              <i class="fa-solid fa-check-circle"></i>
+              <strong>Sumber Data:</strong> OpenStreetMap & Dinkes Kota Malang
+            </li>
+          </ul>
+
+          <button class="btn-primary" onclick="openZoomModal()">
+            <i class="fa-solid fa-magnifying-glass-plus"></i> Lihat Ukuran Penuh
+          </button>
+        </div>
+
+        <div class="layout-image-wrapper" onclick="openZoomModal()">
+          <img
+            src="image/Layout Faskes Klojen.png"
+            alt="Layout Peta Cetak"
+            class="layout-thumb"
+          />
+          <div class="overlay-zoom">
+            <i class="fa-solid fa-expand"></i> Klik untuk Memperbesar
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="map-section" class="map-layout-section">
+      <div class="section-header">
+        <h2>Peta Tematik Persebaran Fasilitas Kesehatan</h2>
+        <p>Kelurahan Klojen, Kota Malang</p>
+      </div>
+      <div class="map-frame-container">
+        <div class="map-border" id="mapContainer">
+          <button class="btn-fullscreen-center" onclick="toggleMapFullScreen()">
+            <i class="fa-solid fa-expand"></i> Buka Layar Penuh
+          </button>
+
+          <button class="btn-close-map" onclick="toggleMapFullScreen()">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+
+          <iframe
+            src="peta_qgis/index.html"
+            class="map-iframe"
+            title="Peta WebGIS QGIS"
+            allowfullscreen
+          >
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-col brand-col">
+          <h3>SIG-KLOJEN</h3>
+          <p>
+            Membantu masyarakat mengakses informasi geospasial kesehatan dengan
+            mudah, cepat, dan akurat.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigasi</h4>
+          <a href="#hero">Beranda</a>
+          <a href="#map-section">Data Statistik</a>
+          <a href="#">Peta Digital</a>
+        </div>
+        <div class="footer-col">
+          <h4>Kontak Pengembang</h4>
+          <p>
+            <i class="fa-solid fa-envelope"></i> antoniusrikihermawan@gmail.com
+          </p>
+          <p><i class="fa-solid fa-building"></i> Institut Asia Malang</p>
+          <div class="socials">
+            <a
+              href="https://github.com/antoniusrikihermawan"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fa-brands fa-github"></i>
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/antonius-riki-hermawan-1324352a1/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <p>&copy; 2025 Project WebGIS | Disusun oleh Antonius Riki Hermawan</p>
+      </div>
+    </footer>
+
+    <div id="zoomModal" class="zoom-modal">
+      <span class="close-modal" onclick="closeZoomModal()">&times;</span>
+      <img class="modal-content" id="img01" />
+      <div id="caption">Layout Peta Tematik - Kelurahan Klojen</div>
+    </div>
+
+    <div id="dataModal" class="modal-overlay">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h2 id="modalTitle">Data Fasilitas</h2>
+          <span class="close-btn" onclick="closeModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 50px">ID</th>
+                <th>Nama Fasilitas</th>
+                <th>Alamat Lengkap</th>
+                <th>No Telp</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
